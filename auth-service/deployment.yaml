@@ -19,6 +19,26 @@ spec:
           image: adittt/mernstack_auth_service:build-128
           ports: 
             - containerPort: 5501
+          volumeMounts: 
+            - name: auth-jwks
+              mountPath: "/home/node/app/public/.well-known" 
+              readOnly: true
+            - name: private-key
+              mountPath: "/home/node/app/certs"
+              readOnly: true
+            - name: environment
+              mountPath: "/home/node/app/.env.production"
+              subPath: ".env.production"
+      volumes:
+        - name: auth-jwks
+          configMap: 
+            name: auth-jwks
+        - name: private-key
+          secret: 
+            secretName: auth-private-key  
+        - name: environment
+          secret: 
+            secretName: auth-env-secret
 --- 
 apiVersion: v1
 kind: Service
