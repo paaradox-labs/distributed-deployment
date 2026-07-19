@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mernspace-auth-ingress
+  name: mernspace-catalog-ingress
   annotations:
       kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -18,6 +18,6 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: auth-service
+              name: catalog-service
               port:
-                number: 5501 
+                number: 5502
