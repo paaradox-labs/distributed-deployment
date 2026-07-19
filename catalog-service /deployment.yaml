@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: catalog-service
+  labels: 
+    app: catalog-service
+spec: 
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec: 
+      containers: 
+        - name: catalog-container
+          image: adittt/mernstack_catalog_service:build-4
+          ports: 
+            - containerPort: 5502
+          volumeMounts: 
+            - name: catalog-secret
+              mountPath: "/home/node/app/config"
+              readOnly: true
+      volumes:
+        - name: catalog-secret
+          secret: 
+            secretName: catalog-secret
+--- 
+apiVersion: v1
+kind: Service
+metadata: 
+  name: "catalog-service"
+spec:
+  selector:
+    app: catalog-service
+  ports:
+    - protocol: TCP
+      port: 5502
+      targetPort: 5502
+
+
