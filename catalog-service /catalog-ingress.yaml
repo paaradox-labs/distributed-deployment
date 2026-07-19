@@ -14,7 +14,7 @@ spec:
   rules:
   - http:
       paths:
-        - path: /api/auth(/|$)(.*)
+        - path: /api/catalog(/|$)(.*)
           pathType: ImplementationSpecific
           backend:
             service:
