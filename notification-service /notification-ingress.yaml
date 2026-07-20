@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mernspace-catalog-ingress
+  name: mernspace-notification-ingress
   annotations:
       kubernetes.io/ingress.class: "nginx"
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -20,10 +20,10 @@ spec:
   - host: api-pizza.adityavyas.com
     http:
       paths:
-        - path: /api/catalog(/|$)(.*)
+        - path: /api/notification(/|$)(.*)
           pathType: ImplementationSpecific
           backend:
             service:
-              name: catalog-service
+              name: notification-service
               port:
-                number: 5502
+                number: 5505
