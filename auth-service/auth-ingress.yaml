@@ -4,6 +4,7 @@ metadata:
   name: mernspace-auth-ingress
   annotations:
       kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, PATCH, GET, POST, OPTIONS, HEAD"
       nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.adityavyas.com"
@@ -11,8 +12,13 @@ metadata:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+      - api-pizza.adityavyas.com
+    secretName: api-pizza-tls
   rules:
-  - http:
+  - host: api-pizza.adityavyas.com
+    http:
       paths:
         - path: /api/auth(/|$)(.*)
           pathType: ImplementationSpecific
@@ -20,4 +26,4 @@ spec:
             service:
               name: auth-service
               port:
-                number: 5501 
+                number: 5501
