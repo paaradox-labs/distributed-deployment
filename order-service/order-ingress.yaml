@@ -4,6 +4,7 @@ metadata:
   name: mernspace-order-ingress
   annotations:
       kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, PATCH, GET, POST, OPTIONS, HEAD"
       nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.adityavyas.com"
@@ -15,7 +16,7 @@ spec:
   tls:
   - hosts:
       - api-pizza.adityavyas.com
-    secretName: api-pizza-tls
+    secretName: order-tls
   rules:
   - host: api-pizza.adityavyas.com
     http:
