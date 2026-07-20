@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate 
+metadata:
+  name: mernspace-admin-cert
+spec:
+  secretName: admin-tls 
+  issuerRef:
+    name: Letsencrypt-prod 
+    kind: ClusterIssuer
+  commonName: admin.adityavyas.com
+  dnsNames:
+  - admin.adityavyas.com

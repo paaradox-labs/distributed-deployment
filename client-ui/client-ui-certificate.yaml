@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate 
+metadata:
+  name: mernspace-client-cert
+spec:
+  secretName: pizza-tls 
+  issuerRef:
+    name: Letsencrypt-prod 
+    kind: ClusterIssuer
+  commonName: pizza.adityavyas.com
+  dnsNames:
+  - pizza.adityavyas.com
