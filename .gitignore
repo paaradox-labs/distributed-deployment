@@ -4,3 +4,5 @@ catalog-secret.yaml
 order-secret.yaml
 ws-secret.yaml
 notification-service-secret.yaml
+client-ui-secret.yaml
+admin-ui-secret.yaml

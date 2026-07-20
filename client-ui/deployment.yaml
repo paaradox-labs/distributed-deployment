@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-ui
+  labels:
+    app: client-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client-ui
+  template:
+    metadata:
+      labels:
+        app: client-ui
+    spec:
+      containers:
+        - name: client-ui-container
+          image: adittt/mernstack_client_ui:build-11
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: client-ui-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "client-ui"
+spec:
+  selector:
+    app: client-ui
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
