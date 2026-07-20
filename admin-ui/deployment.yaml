@@ -18,7 +18,7 @@ spec:
         - name: admin-ui-container
           image: adittt/mernstack_admin_dashboard:build-5
           ports:
-            - containerPort: 5173
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -30,4 +30,4 @@ spec:
   ports:
     - protocol: TCP
       port: 5173
-      targetPort: 5173
+      targetPort: 80
