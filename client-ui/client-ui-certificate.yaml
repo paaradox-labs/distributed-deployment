@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: pizza-tls 
   issuerRef:
-    name: Letsencrypt-prod 
+    name: letsencrypt-prod 
     kind: ClusterIssuer
   commonName: pizza.adityavyas.com
   dnsNames:

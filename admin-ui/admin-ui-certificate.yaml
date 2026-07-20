@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: admin-tls 
   issuerRef:
-    name: Letsencrypt-prod 
+    name: letsencrypt-prod 
     kind: ClusterIssuer
   commonName: admin.adityavyas.com
   dnsNames:
