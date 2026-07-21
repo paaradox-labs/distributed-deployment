@@ -16,7 +16,7 @@ spec:
     spec: 
       containers: 
         - name: auth-container
-          image: adittt/mernstack_auth_service:build-131
+          image: adittt/mernstack_auth_service:build-132
           ports: 
             - containerPort: 5501
           volumeMounts: 
