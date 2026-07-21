@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client-ui-container
-          image: adittt/mernstack_client_ui:build-14
+          image: adittt/mernstack_client_ui:build-15
           ports:
             - containerPort: 3000
           envFrom:
