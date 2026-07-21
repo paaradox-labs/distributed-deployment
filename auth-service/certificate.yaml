@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: mernspace-auth-cert
 spec:
-  secretName: api-pizza-tls
+  secretName: auth-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer

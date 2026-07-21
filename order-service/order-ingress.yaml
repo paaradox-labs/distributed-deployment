@@ -16,7 +16,7 @@ spec:
   tls:
   - hosts:
       - api-pizza.adityavyas.com
-    secretName: api-pizza-tls
+    secretName: auth-tls
   rules:
   - host: api-pizza.adityavyas.com
     http:
