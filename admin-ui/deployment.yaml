@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: admin-ui-container
-          image: adittt/mernstack_admin_dashboard:build-13
+          image: adittt/mernstack_admin_dashboard:build-14
           ports:
             - containerPort: 80
           envFrom:
