@@ -1,0 +1,73 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mernspace-client-ui-api-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, PATCH, GET, POST, OPTIONS, HEAD"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.adityavyas.com"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/$2"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - pizza.adityavyas.com
+    secretName: pizza-tls
+  rules:
+  - host: pizza.adityavyas.com
+    http:
+      paths:
+        # The client-ui image is built without NEXT_PUBLIC_BACKEND_URL inlined, so
+        # browser-side fetches resolve to same-origin paths:
+        #   - axios baseURL undefined  -> /api/...
+        #   - toppings template-literal -> /undefined/api/catalog/toppings
+        # Route them straight to the backing services (same layout as api-pizza).
+        - path: /api/auth(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: auth-service
+              port:
+                number: 5501
+        - path: /api/catalog(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: catalog-service
+              port:
+                number: 5502
+        - path: /api/order(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: order-service
+              port:
+                number: 5503
+        - path: /api/ws(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: ws-service
+              port:
+                number: 5504
+        - path: /api/notification(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: notification-service
+              port:
+                number: 5505
+        # Topping list fetch built as `${process.env.NEXT_PUBLIC_BACKEND_URL}/...`
+        # where the var is undefined -> path becomes /undefined/api/catalog/toppings
+        - path: /undefined/api/catalog(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: catalog-service
+              port:
+                number: 5502
