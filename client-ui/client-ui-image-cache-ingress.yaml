@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mernspace-client-ui-image-cache-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # Cache the Next.js image-optimizer responses (/_next/image) and the
+    # toppings payload at the ingress so repeat visitors and modal opens get
+    # instant responses instead of re-fetching from S3 + re-resizing every time.
+    nginx.ingress.kubernetes.io/proxy-cache: "on"
+    nginx.ingress.kubernetes.io/proxy-cache-methods: "GET HEAD"
+    nginx.ingress.kubernetes.io/proxy-cache-valid: "200 7d"
+    nginx.ingress.kubernetes.io/proxy-cache-key: "$uri?$args"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - pizza.adityavyas.com
+    secretName: pizza-tls
+  rules:
+  - host: pizza.adityavyas.com
+    http:
+      paths:
+        - path: /_next/image
+          pathType: Exact
+          backend:
+            service:
+              name: client-ui
+              port:
+                number: 3000
+        - path: /api/catalog/toppings
+          pathType: Exact
+          backend:
+            service:
+              name: catalog-service
+              port:
+                number: 5502
