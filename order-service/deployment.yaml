@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: order-container
-          image: adittt/mernstack_order_service:build-8
+          image: adittt/mernstack_order_service:build-10
           ports:
             - containerPort: 5503
           volumeMounts:

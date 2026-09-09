@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: notification-container
-          image: adittt/mernstack_notification_service:build-4
+          image: adittt/mernstack_notification_service:build-5
           ports:
             - containerPort: 5505
           volumeMounts:

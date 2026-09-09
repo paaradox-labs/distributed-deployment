@@ -16,7 +16,7 @@ spec:
     spec: 
       containers: 
         - name: catalog-container
-          image: adittt/mernstack_catalog_service:build-4
+          image: adittt/mernstack_catalog_service:build-6
           ports: 
             - containerPort: 5502
           volumeMounts: 
