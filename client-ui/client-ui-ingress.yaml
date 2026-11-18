@@ -21,6 +21,25 @@ spec:
   - host: pizza.adityavyas.com
     http:
       paths:
+        # Next.js session routes. These must sort ahead of the broader
+        # /api/auth(/|$)(.*) regex in client-ui-api-ingress, otherwise ingress
+        # sends them to auth-service, where they 404 and the storefront cannot
+        # refresh tokens. ingress-nginx orders regex paths by length, so keep
+        # the (/|$)(.*) suffix to make these longer than the /api/auth rule.
+        - path: /api/auth/accessToken(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: client-ui
+              port:
+                number: 3000
+        - path: /api/auth/refresh(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: client-ui
+              port:
+                number: 3000
         - path: /
           pathType: Prefix
           backend:
